@@ -1,0 +1,57 @@
+@base = http://localhost:3000/api/68130500075
+# แก้ createdId ให้ตรง data.id จาก POST ของตัวเองก่อน PUT/DELETE
+@createdId = 76
+
+### ข้อมูลผู้สอบ (ชื่อที่ยืนยันแล้ว)
+GET {{base}}/student-info
+
+### แบรนด์ทั้งหมด 22 รายการบน seed ใหม่
+GET {{base}}/brands
+
+### แบรนด์ Apple
+GET {{base}}/brands/1
+
+### ไม่พบแบรนด์ 404
+GET {{base}}/brands/99999
+
+### Summary + Pagination: total=75, totalPages=8 บน seed ใหม่
+GET {{base}}/products?page=1&limit=10
+
+### หน้า 8 เหลือ 5 รายการบน seed ใหม่
+GET {{base}}/products?page=8&limit=10
+
+### Detail + brandName=Apple, releaseDate=2023-09-22
+GET {{base}}/products/1
+
+### สร้าง 201 (SKU ต้องไม่ซ้ำ; แก้ createdId ตาม response)
+POST {{base}}/products
+Content-Type: application/json
+
+{"sku":"TEST-SKU-999","name":"Test Phone 2026","brand_id":1,"category":"FLAGSHIP","price":29900,"ram_gb":8,"storage_gb":256,"color":"Black","stock_quantity":10,"status":"AVAILABLE","release_date":"2026-01-01"}
+
+### SKU ซ้ำ 409 ถ้าส่งหลังสร้างข้างบน
+POST {{base}}/products
+Content-Type: application/json
+
+{"sku":"TEST-SKU-999","name":"Duplicate Phone","brand_id":1,"category":"FLAGSHIP","price":29900,"ram_gb":8,"storage_gb":256,"color":"Black"}
+
+### แก้บาง field 200 ไม่ล้างค่าอื่น
+PUT {{base}}/products/{{createdId}}
+Content-Type: application/json
+
+{"name":"Updated Phone","price":27900,"stock_quantity":20}
+
+### อ่านยืนยันค่าหลังแก้
+GET {{base}}/products/{{createdId}}
+
+### ลบ 204 ไม่มี body
+DELETE {{base}}/products/{{createdId}}
+
+### หลังลบ 404
+GET {{base}}/products/{{createdId}}
+
+### ไม่รับแก้ id ใน body: 400
+PUT {{base}}/products/1
+Content-Type: application/json
+
+{"id":99}

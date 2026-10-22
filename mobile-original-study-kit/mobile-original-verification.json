@@ -1,0 +1,34 @@
+{
+  "method": "Actual Express handlers in process; simulated database from SQL fixtures. No live MySQL or network sockets.",
+  "suppliedRunner": {
+    "passed": 12,
+    "total": 12,
+    "score": 100
+  },
+  "extraChecks": 9,
+  "sqlFixtures": {
+    "brands": 22,
+    "products": 75
+  },
+  "queries": 48,
+  "templateUsed": "node-express-esm-template 2",
+  "templateFilesPreserved": [
+    "npm",
+    "package-lock.json",
+    "package.json",
+    "src/app.js",
+    "src/configs-$id/db-config.js",
+    "src/mappers-$id/api-response.js",
+    "src/mappers-$id/entity-dto-mapper.js",
+    "src/middlewares-$id/pagination-middleware.js",
+    "src/repositories-$id/repository.js",
+    "src/routes-$id/route.js",
+    "src/services-$id/service.js",
+    "src/test-service.js"
+  ],
+  "newSourcePaths": [],
+  "errorHandlerLocation": "src/app.js",
+  "syntaxCheckFiles": 9,
+  "packageFilesByteIdentical": true,
+  "supportSqlAndTesterUnchanged": true
+}

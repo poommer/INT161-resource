@@ -1,0 +1,42 @@
+{
+  "method": "Actual Express handlers in process; simulated database from SQL fixtures. No live MySQL or network sockets.",
+  "suppliedRunner": {
+    "passed": 12,
+    "total": 12,
+    "score": 100
+  },
+  "extraChecks": 7,
+  "sqlFixtures": {
+    "brands": 22,
+    "products": 75
+  },
+  "queries": 46,
+  "sourceFilePathsPreserved": [
+    "app.js",
+    "configs-$id/db-config.js",
+    "mappers-$id/api-response.js",
+    "mappers-$id/entity-dto-mapper.js",
+    "mappers-$id/product-mapper.js",
+    "middlewares-$id/error-handler.js",
+    "middlewares-$id/pagination-middleware.js",
+    "repositories-$id/brand.repo.js",
+    "repositories-$id/product.repo.js",
+    "routes-$id/brand.route.js",
+    "routes-$id/route.js",
+    "services-$id/brand.service.js",
+    "services-$id/service.js",
+    "test-service.js"
+  ],
+  "sourceJavaScriptSyntaxPassed": 14,
+  "filesPreservedByteForByte": [
+    "package.json",
+    "package-lock.json",
+    "init-database.sql",
+    "exam-spec-68130500075.md",
+    "tests/test-runner.mjs",
+    "tests/batch-grade.mjs",
+    "src/mappers-$id/entity-dto-mapper.js"
+  ],
+  "originalDownloadsFilesModified": false,
+  "identityName": "Siripoom Limesoontorn"
+}

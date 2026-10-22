@@ -1,0 +1,471 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mobile Exam — โค้ดพื้นฐานตาม template</title><style>
+:root{color-scheme:light;--ink:#172c3b;--accent:#0f6676;--line:#d9e2e8;--paper:#fff;--muted:#526777}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:#edf2f5;color:var(--ink);font:17px/1.8 system-ui,-apple-system,"Thonburi","Leelawadee UI",sans-serif;overflow-wrap:anywhere}aside{position:fixed;inset:0 auto 0 0;width:270px;padding:28px 22px;background:#123444;color:#fff;overflow:auto}aside .brand{font-size:12px;letter-spacing:2px;color:#a9dadd}aside h2{font-size:22px;line-height:1.5;margin:10px 0 20px}aside a{display:block;padding:7px 0;color:#e5f3f5;text-decoration:none;font-size:13px;line-height:1.6;border-bottom:1px solid #ffffff14}aside a:hover{color:#87efdb}aside .hint{font-size:12px;color:#b7ced8;margin-top:20px}main{max-width:1130px;margin:28px 28px 80px 298px;background:var(--paper);padding:48px 52px 72px;border:1px solid var(--line);border-radius:12px}.toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:30px;font-size:13px;color:var(--muted)}button{background:var(--accent);color:white;border:0;border-radius:7px;padding:9px 15px;font:inherit;cursor:pointer}.badge{padding:5px 10px;border:1px solid var(--line);border-radius:30px}h1{font-size:36px;line-height:1.4;margin:0 0 8px;letter-spacing:-.5px}h2{font-size:25px;line-height:1.6;margin:44px 0 15px;padding-top:14px;border-top:3px solid var(--accent);color:#124a5c}h3{font-size:20px;line-height:1.6;margin:30px 0 12px;color:#175a6b}p{margin:12px 0 18px}a{color:#076e86}li{margin:7px 0}ul,ol{padding-left:26px}.table-wrap{overflow-x:auto;margin:18px 0 26px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7}th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;text-align:left}th{background:#e9f2f5;color:#174e60}tr:nth-child(even) td{background:#f8fafb}code{font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}p code,li code,td code{background:#edf3f6;padding:2px 4px;border-radius:4px}.code-label{background:#e5edf2;color:#45616f;font:11px/1.4 ui-monospace,monospace;padding:5px 14px;border:1px solid #cfdae2;border-bottom:0;border-radius:7px 7px 0 0;margin-top:16px}pre{margin:0 0 22px;padding:16px;background:#f6f8fa;border:1px solid #cfdae2;border-radius:0 0 7px 7px;overflow-x:auto;line-height:1.6;tab-size:2;white-space:pre}pre code{color:#203c4d}footer{font-size:12px;color:var(--muted);border-top:1px solid var(--line);margin-top:36px;padding-top:20px}@media(min-width:1550px){main{margin-left:calc(270px + (100vw - 1450px)/2)}}@media(max-width:1000px){aside{position:static;width:auto;max-height:350px}main{margin:18px;padding:28px}aside a{display:inline-block;margin-right:16px}}@media print{@page{size:A4;margin:16mm 13mm}body{background:white;font-size:10pt;line-height:1.6}aside,.toolbar{display:none}main{margin:0;max-width:none;border:0;border-radius:0;padding:0}h1{font-size:24pt}h2{font-size:16pt;margin-top:24pt;break-after:avoid}h3{font-size:12pt;break-after:avoid}p{orphans:3;widows:3}table{font-size:8.5pt}th,td{padding:5pt;overflow-wrap:anywhere}tr{break-inside:avoid}thead{display:table-header-group}.table-wrap{overflow:visible}pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;overflow:visible;padding:8pt}pre code{font-size:8pt;line-height:1.45}.code-label{break-after:avoid}a{color:inherit;text-decoration:underline}footer{font-size:8pt}}
+aside h2{border:0;padding:0}pre{white-space:pre-wrap;overflow-wrap:anywhere}aside .download{color:#9dedcf;font-weight:700}</style></head><body><aside><div class="brand">INT161 / MOBILE EXAM</div><h2>โค้ดพื้นฐาน<br>ตาม template เดิม</h2><a class="download" href="mobile-exam-study-kit.zip">ดาวน์โหลดโค้ดและเอกสาร</a><a href="#section-2">1. สิ่งที่คงตาม template</a><a href="#section-3">2. โครงสร้างโปรเจกต์ที่ใช้</a><a href="#section-4">3. วิธีรันจากไฟล์ที่คงเดิม</a><a href="#section-5">4. Flow ที่ใช้ทั้งโปรเจกต์</a><a href="#section-6">5. แต่ละไฟล์ทำอะไร</a><a href="#section-7">6. สรุป endpoints ตามใบงาน</a><a href="#section-8">7. Pagination — ไล่ค่าที่ส่งผ่านแต่ละชั้น</a><a href="#section-9">8. DTO — จำชื่อ input กับ output ให้แยกกัน</a><a href="#section-10">9. POST — AUTO_INCREMENT และ SKU ซ้ำ</a><a href="#section-11">10. PUT — แก้เฉพาะ field ที่ส่งมา</a><a href="#section-12">11. DELETE และ Exception Handling</a><a href="#section-13">12. ทดสอบและขอบเขตที่ยืนยันแล้ว</a><a href="#section-14">13. Checklist ก่อนนำไปเป็นตัวอย่างสอบ</a><a href="#section-15">14. โค้ดเต็มพร้อม comment ในไฟล์เดิม</a><p class="hint">คงชื่อไฟล์/package/tester/SQL<br>คำอธิบายภาษาไทย<br>อ่านได้ออฟไลน์</p></aside><main><div class="toolbar"><button onclick="window.print()">พิมพ์ / บันทึก PDF</button><span class="badge">13 ไฟล์อธิบาย + สรุป flow</span></div><h1 id="section-1">ตัวอย่างข้อสอบ Mobile Distributor แบบพื้นฐาน</h1><p>อิง exam-spec-68130500075.md + init-database.sql และ source ใน int161-exam1-mockup • 22 ตุลาคม 2026</p><h2 id="section-2">1. สิ่งที่คงตาม template</h2><p>ตัวอย่างนี้ใช้โครงสร้างไฟล์ของ mockup ที่ให้มาล่าสุด ไม่ใช้โครงสร้างโปรเจกต์ฝึก Products รุ่นก่อนหน้า และไม่เพิ่ม class/โฟลเดอร์ validator/errors ใหม่ คงชื่อ folder $id ตามที่ได้รับ ไม่เปลี่ยนเป็นรหัสนักศึกษาเอง</p><ul><li>ชื่อและตำแหน่งไฟล์ใน src เหมือนต้นฉบับทุกไฟล์</li><li>package.json และ package-lock.json คงเดิมทุก byte ไม่เพิ่ม dependencies หรือ scripts</li><li>init-database.sql และใบงานคงต้นฉบับ ไม่เปลี่ยน schema/seed</li><li>tests/test-runner.mjs และ tests/batch-grade.mjs คงเดิม ไม่แก้ assertions หรือเกณฑ์คะแนน</li><li>เติม/แก้เนื้อหาในไฟล์เดิมเพื่อให้ทำงานตามโจทย์ พร้อม comment อธิบาย</li><li>ไม่มี node_modules หรือผลสอบเก่าปะปนใน ZIP</li></ul><p>“คง template” ในชุดนี้หมายถึงคงโครงสร้างไฟล์และรูปแบบการเรียกหลัก แต่เติม logic ภายในตามโจทย์ เช่น timestamp ปัจจุบัน, DTO และการจัดการ error ไม่ได้หมายถึงเก็บ placeholder/โค้ดที่ใช้กับ entity เก่าทั้งหมดไว้โดยไม่เติม</p><p>ชื่อ student-info ใช้ Siripoom Limesoontorn ตาม Student Profile และคำยืนยันของผู้ใช้ เพราะชื่อใน JSON ตัวอย่างไม่ตรงกัน รหัส/Secret Key ใช้ค่าของใบงาน ไม่พิมพ์ Secret Key ใน server log</p><h2 id="section-3">2. โครงสร้างโปรเจกต์ที่ใช้</h2><div class="code-label">text</div><pre><code>mobile-exam-basic/
+  package.json                     ← เดิม ไม่มี start script
+  package-lock.json                ← เดิม
+  init-database.sql                ← เดิม: schema + seed
+  exam-spec-68130500075.md          ← ใบงานเดิม
+  tests/
+    test-runner.mjs                 ← tester เดิม
+    batch-grade.mjs                 ← เดิม ไม่จำเป็นต้องใช้ฝึกคนเดียว
+  src/
+    app.js
+    test-service.js
+    configs-$id/
+      db-config.js
+    repositories-$id/
+      brand.repo.js
+      product.repo.js
+    services-$id/
+      brand.service.js
+      service.js
+    routes-$id/
+      brand.route.js
+      route.js
+    mappers-$id/
+      api-response.js
+      product-mapper.js
+      entity-dto-mapper.js          ← ไฟล์เก่าที่ไม่ได้ใช้ใน API นี้
+    middlewares-$id/
+      pagination-middleware.js
+      error-handler.js             ← AppError อยู่ที่นี่ตาม template</code></pre><p>เอกสารอธิบายและ requests.http วางนอกโฟลเดอร์โปรเจกต์ เพื่อไม่เพิ่มไฟล์ในโครงสร้าง src ของ template</p><h2 id="section-4">3. วิธีรันจากไฟล์ที่คงเดิม</h2><p>เปิด terminal ในโฟลเดอร์ mobile-exam-basic ไม่ใช่โฟลเดอร์ชั้นนอกของ ZIP</p><div class="code-label">sh</div><pre><code>npm ci
+node src/app.js</code></pre><p>package.json เดิมไม่มี npm start จึงใช้ node src/app.js แทน ไม่ได้เพิ่ม script เพื่อให้เป็นไปตามคำขอคง template ส่วน npm test เดิมเป็นข้อความ placeholder ไม่ใช่ชุดตรวจข้อสอบ</p><p>ก่อนเปิด server ต้องเตรียม MySQL และตั้งค่า src/configs-$id/db-config.js ให้ตรงเครื่อง คง host/user/password default จากไฟล์เดิมไว้ให้แก้ได้ง่าย database ต้องเป็น mobile_distributor</p><p>การสร้างฐานข้อมูลใช้ไฟล์ init-database.sql ที่ root ของโปรเจกต์:</p><div class="code-label">sh</div><pre><code>mysql -u root -p &lt; init-database.sql</code></pre><p>ไฟล์ SQL นี้มี DROP TABLE/TRUNCATE และสร้าง seed ใหม่ 22 brands/75 products จึงใช้กับฐานข้อมูลฝึกที่ตั้งใจให้ reset เท่านั้น ตัวอย่างนี้ไม่ได้รัน SQL นี้กับฐานข้อมูลของผู้ใช้</p><p>จากนั้นเปิด terminal อีกหน้าในโฟลเดอร์เดิมเพื่อรัน tester:</p><div class="code-label">sh</div><pre><code>node tests/test-runner.mjs 68130500075</code></pre><p>ไม่จำเป็นต้องแก้ tester หากไม่มี student.csv tester เดิมจะใช้ Unknown Student/N/A ในข้อมูลคาดหวัง จึงอาจไม่ตรวจชื่อ/Secret Key ครบ แม้ endpoint ของตัวอย่างใส่ค่าตามใบงานแล้ว อย่าสร้าง roster ปลอมเพื่อให้ผลคะแนนดูครบ</p><h2 id="section-5">4. Flow ที่ใช้ทั้งโปรเจกต์</h2><div class="code-label">text</div><pre><code>Request
+ → app.js (express.json และ base path)
+ → Router (อ่าน params/query/body)
+ → Service (ตรวจ input/ตรวจ not found)
+ → Repository (SQL ด้วย mysql2)
+ → DB คืน rows/result
+ → Router ใช้ ProductMapper แปลง DTO
+ → apiResponse ส่ง success/data/timestamp/pagination
+
+ถ้า throw หรือ Promise reject ใน async route ของ Express 5
+ → errorHandler ส่ง success:false พร้อม error และ timestamp</code></pre><p>ใน template mockup นี้ route เป็นผู้เรียก mapper จึงคงแนวทางนั้น ไม่ย้าย mapper ไปอยู่ service ทั้งหมดเพียงเพื่อให้เหมือนตัวอย่างก่อนหน้า</p><h2 id="section-6">5. แต่ละไฟล์ทำอะไร</h2><div class="table-wrap"><table><thead><tr><th>ไฟล์</th><th>งานหลัก</th><th>สิ่งที่จำไปปรับใช้ได้</th></tr></thead><tbody><tr><td>app.js</td><td>สร้าง app, parse JSON, mount base path, identity, error handler</td><td>ลง middleware ให้ถูกลำดับ</td></tr><tr><td>db-config.js</td><td>MySQL Promise pool</td><td>database ให้ตรง SQL; decimalNumbers/dateStrings</td></tr><tr><td>brand.repo.js</td><td>SELECT brands ทั้งหมด/ตาม ID</td><td>[rows] แล้วเลือก rows[0]</td></tr><tr><td>product.repo.js</td><td>COUNT, SELECT+JOIN, INSERT, UPDATE, DELETE</td><td>placeholders และ result.insertId</td></tr><tr><td>brand.service.js</td><td>เรียก repo และ throw 404</td><td>ตรวจ null ก่อนส่ง response</td></tr><tr><td>service.js</td><td>product CRUD และ helper prepareData</td><td>ตรวจ body, whitelist fields, partial update</td></tr><tr><td>product-mapper.js</td><td>Summary/Detail DTO</td><td>snake_case → camelCase</td></tr><tr><td>api-response.js</td><td>envelope และ metadata</td><td>ลายเซ็นเดิม (res,data,pagination,status)</td></tr><tr><td>pagination-middleware.js</td><td>page/limit/offset</td><td>defaults และ cap limit ก่อนคำนวณ offset</td></tr><tr><td>route.js</td><td>HTTP endpoints สินค้า</td><td>ส่ง id/body ให้ service ครบ, await ก่อนตอบ</td></tr><tr><td>brand.route.js</td><td>GET brands</td><td>ใช้ service และ helper เดียวกัน</td></tr><tr><td>error-handler.js</td><td>AppError และ MySQL error mapping</td><td>constructor(message,statusCode) ตามไฟล์เดิม</td></tr><tr><td>test-service.js</td><td>อ่านสินค้ารหัส 1 แล้วปิด pool</td><td>เปลี่ยน import เก่าที่ไม่มีจริง; ไม่มีคำสั่งลบข้อมูลฝึกอัตโนมัติ</td></tr></tbody></table></div><p>entity-dto-mapper.js เป็นตัวอย่าง productCode/MSRP ของ entity เก่า คงไว้ไม่เปลี่ยนและไม่มีไฟล์ active import ใช้ สำหรับโจทย์มือถือให้ดู product-mapper.js</p><h2 id="section-7">6. สรุป endpoints ตามใบงาน</h2><p>ทุก path ขึ้นต้น /api/68130500075</p><div class="table-wrap"><table><thead><tr><th>Method</th><th>Path ต่อจาก base</th><th>ทำอะไร</th><th>สำเร็จ/ผิดพลาดหลัก</th></tr></thead><tbody><tr><td>GET</td><td>/student-info</td><td>รหัส ชื่อ Secret Key ของผู้เข้าสอบ</td><td>200</td></tr><tr><td>GET</td><td>/brands</td><td>แบรนด์ทั้งหมดแบบ raw rows ตามโจทย์</td><td>200</td></tr><tr><td>GET</td><td>/brands/:id</td><td>แบรนด์หนึ่งรายการ</td><td>200/404</td></tr><tr><td>GET</td><td>/products?page=1&amp;limit=10</td><td>Summary DTO + Pagination</td><td>200</td></tr><tr><td>GET</td><td>/products/:id</td><td>Detail DTO พร้อมชื่อแบรนด์</td><td>200/404</td></tr><tr><td>POST</td><td>/products</td><td>เพิ่มสินค้า</td><td>201/409 SKU ซ้ำ</td></tr><tr><td>PUT</td><td>/products/:id</td><td>แก้ field ที่ส่งมา</td><td>200/404</td></tr><tr><td>DELETE</td><td>/products/:id</td><td>ลบสินค้า</td><td>204 ไม่มี body/404</td></tr></tbody></table></div><p>brand POST/PUT/DELETE เดิมใน template คงตอบ 405 เพราะใบงานไม่ได้ขอให้ทำ CRUD ของ brands</p><h2 id="section-8">7. Pagination — ไล่ค่าที่ส่งผ่านแต่ละชั้น</h2><div class="code-label">http</div><pre><code>GET /api/68130500075/products?page=2&amp;limit=10</code></pre><ol><li>queryParser อ่าน string &#x27;2&#x27;/&#x27;10&#x27; แล้วแปลง number</li><li>req.pagination = {page:2,limit:10,offset:10}</li><li>route ส่ง req.pagination ให้ service.getAllObjects(...)</li><li>service ส่งต่อ repo.findAll(pagination)</li><li>COUNT ได้ total=75 บน seed ใหม่</li><li>SELECT ... ORDER BY id LIMIT 10 OFFSET 10 ได้ลำดับที่ 11–20</li><li>repo คืน {rows,total:75}</li><li>route map rows เป็น Summary DTO</li><li>route รวม total เข้า pagination object แล้วส่ง helper</li><li>helper คำนวณ totalPages=8, hasNextPage=true, hasPrevPage=true</li></ol><p>ไม่มี query ใช้ค่าเริ่มต้นตาม template page=1, limit=20 ไม่เปลี่ยนเป็น 10 เพียงเพราะตัวอย่าง response ใช้ 10 ค่า limit สูงสุด 100 ถ้าระบุค่าไม่ถูกต้องใช้ default ตามนโยบายเดิมของ template</p><p>สูตร: offset=(page−1)×limit; totalPages=Math.ceil(total/limit) ค่า offset ต้องใช้ limit หลัง cap แล้ว</p><h2 id="section-9">8. DTO — จำชื่อ input กับ output ให้แยกกัน</h2><div class="table-wrap"><table><thead><tr><th>DB/Input</th><th>Detail output</th><th>Summary output</th></tr></thead><tbody><tr><td>id</td><td>id</td><td>id</td></tr><tr><td>sku</td><td>sku</td><td>sku</td></tr><tr><td>name</td><td>name</td><td>name</td></tr><tr><td>brand_id</td><td>brandId</td><td>brandId</td></tr><tr><td>brand_name จาก JOIN</td><td>brandName</td><td>ไม่ส่ง</td></tr><tr><td>category</td><td>category</td><td>category</td></tr><tr><td>price</td><td>price แบบ number</td><td>price แบบ number</td></tr><tr><td>ram_gb</td><td>ramGb</td><td>ไม่ส่ง</td></tr><tr><td>storage_gb</td><td>storageGb</td><td>ไม่ส่ง</td></tr><tr><td>color</td><td>color</td><td>ไม่ส่ง</td></tr><tr><td>stock_quantity</td><td>stockQuantity</td><td>ไม่ส่ง</td></tr><tr><td>status</td><td>status</td><td>status</td></tr><tr><td>release_date</td><td>releaseDate</td><td>ไม่ส่ง</td></tr><tr><td>created_at/updated_at</td><td>ไม่ส่ง</td><td>ไม่ส่ง</td></tr></tbody></table></div><p>brand_name ไม่ใช่ column ของ products แต่ได้จาก SELECT p.*, b.name AS brand_name JOIN brands b ON b.id=p.brand_id ถ้าไม่มี JOIN จะไม่มีข้อมูล brandName ให้ mapper ส่ง</p><p>MySQL DECIMAL อาจกลับมาเป็น string จึงใช้ decimalNumbers และ Number(entity.price) ส่วน DATE ตั้ง dateStrings:[&#x27;DATE&#x27;] เพื่อคง YYYY-MM-DD และไม่เลื่อนวันเมื่อแปลง timezone สำหรับ created_at ของ brands ยังคงเป็น timestamp ที่ driver serialize ตาม config/สภาพแวดล้อม ไม่ hard-code ตามเวลาตัวอย่างในโจทย์</p><h2 id="section-10">9. POST — AUTO_INCREMENT และ SKU ซ้ำ</h2><div class="code-label">json</div><pre><code>{
+  &quot;sku&quot;:&quot;TEST-SKU-999&quot;,
+  &quot;name&quot;:&quot;Test Phone 2026&quot;,
+  &quot;brand_id&quot;:1,
+  &quot;category&quot;:&quot;FLAGSHIP&quot;,
+  &quot;price&quot;:29900,
+  &quot;ram_gb&quot;:8,
+  &quot;storage_gb&quot;:256,
+  &quot;color&quot;:&quot;Black&quot;,
+  &quot;stock_quantity&quot;:10,
+  &quot;status&quot;:&quot;AVAILABLE&quot;,
+  &quot;release_date&quot;:&quot;2026-01-01&quot;
+}</code></pre><p>service.prepareData คัดเฉพาะ fields ที่อนุญาต ไม่รับ id หรือ timestamps ที่ผู้ใช้ใส่เอง ไม่เพิ่ม validator class แยกให้ซับซ้อน POST บังคับ fields ที่ DB ไม่ได้ตั้ง default ส่วน stock_quantity/status ใช้ default ของ schema ได้ และ release_date อนุญาต NULL ตามฐานข้อมูล</p><p>repo ใช้ db.query(&#x27;INSERT INTO products SET ?&#x27;, [data]) ตามแนว template แล้วเอา result.insertId ไป findOne เพราะ id เป็น AUTO_INCREMENT ตัวอย่างนี้ต่างจาก Products ฝึกเก่าที่ใช้ string productCode เป็น key</p><p>SKU ซ้ำจะได้ ER_DUP_ENTRY จาก UNIQUE แล้ว error handler แปลงเป็น 409; brand_id ไม่มีจริงจะได้ foreign-key error แล้วตอบ 400</p><h2 id="section-11">10. PUT — แก้เฉพาะ field ที่ส่งมา</h2><div class="code-label">json</div><pre><code>{&quot;name&quot;:&quot;Updated Phone&quot;,&quot;price&quot;:27900,&quot;stock_quantity&quot;:20}</code></pre><p>test-runner ให้ PUT ส่งเพียง 3 fields จึงต้องรองรับ partial update สำหรับใบงานนี้ ไม่บังคับส่งทุก field เหมือนคู่มือฝึกฉบับก่อน และไม่เปลี่ยน method เป็น PATCH เอง</p><p>ลำดับ: getObject(id) ตรวจว่ามีจริง → prepareData(data,false) → UPDATE ... SET ? WHERE id=? → SELECT ข้อมูลหลังแก้ → Detail DTO → 200</p><p>SET ? ของ query() ช่วยเปลี่ยนเฉพาะ fields ที่มีใน object ส่วน field ที่ไม่ได้ส่งคงค่าเดิม การยอมให้ object เป็น column names ต้องมี whitelist ใน service อย่าส่ง body ที่ไม่มีการคัดตรงเข้า DB</p><h2 id="section-12">11. DELETE และ Exception Handling</h2><p>DELETE ใช้ await ก่อนตอบเสมอ เมื่อ repo คืน affectedRows&gt;0 จึงส่ง 204 ด้วย res.end() ไม่ส่ง JSON body หากไม่พบ ID ให้ 404</p><div class="table-wrap"><table><thead><tr><th>กรณี</th><th>response status</th></tr></thead><tbody><tr><td>Body ไม่ใช่ object/ว่าง, field ไม่อนุญาต, required field หาย</td><td>400</td></tr><tr><td>JSON syntax ผิด</td><td>400</td></tr><tr><td>ไม่พบแบรนด์หรือสินค้า</td><td>404</td></tr><tr><td>SKU ซ้ำ</td><td>409</td></tr><tr><td>brand_id ไม่พบใน brands</td><td>400</td></tr><tr><td>error ที่ไม่ได้คาดหมาย</td><td>500</td></tr></tbody></table></div><p>ลำดับ AppError คือ new AppError(message,statusCode) ตาม mockup เดิม อย่าสลับกับคู่มือเก่าที่เคยใช้ (status,message)</p><p>ลำดับ apiResponse คือ (res,data,pagination,status) ดังนั้น POST เรียก apiResponse(res,dto,null,201) โดยไม่เพิ่ม argument ตัวที่ 5</p><h2 id="section-13">12. ทดสอบและขอบเขตที่ยืนยันแล้ว</h2><p>ตรวจ JavaScript syntax, โครงสร้าง src และความตรงของไฟล์ package/SQL/tester กับต้นฉบับ พร้อมเรียก Express handlers จริงภายในโปรเซสโดยจำลอง MySQL จากข้อมูล seed ที่อ่านจาก SQL</p><ul><li>ชุด test-runner เดิม 12 กรณีผ่านทั้งหมดในสภาพแวดล้อมจำลองฐานข้อมูล</li><li>ตรวจเพิ่มชื่อที่ยืนยัน, exact Summary keys, Detail JOIN/date, หน้าสุดท้าย/หน้าว่าง, PUT บาง field/ค่าเดิม, malformed JSON/unknown fields/FK และ pagination defaults/cap</li><li>ไม่ใช้ผลตรวจเก่าที่มีอยู่ใน Downloads มาอ้างเป็นผลใหม่</li><li>ยังไม่ได้เชื่อม MySQL จริงหรือรัน SQL initialization จึงไม่ใช่ผลยืนยัน integration กับฐานข้อมูลหรือคะแนนสอบจริง</li></ul><p>สรุปผลการตรวจแยกไว้ใน mobile-exam-verification.json การจำลองตรวจ logic และการต่อข้อมูลระหว่างชั้น แต่ไม่ได้แทนพฤติกรรม DB ทุกกรณี เช่น timezone, DECIMAL rounding, SQL mode, connection credentials หรือ concurrent changes</p><p>validation ในตัวอย่างตั้งใจให้พื้นฐาน ไม่ใช่ schema validator ครบทุกเงื่อนไข เช่น max length/price precision/วันที่ทุกกรณียังมีข้อกำหนดของฐานข้อมูลช่วยบังคับ COUNT/SELECT และ existence/UPDATE เป็น query แยกกัน ไม่ได้เพิ่ม transaction</p><h2 id="section-14">13. Checklist ก่อนนำไปเป็นตัวอย่างสอบ</h2><ol><li>เปิดไฟล์ให้ตรงหน้าที่: route รับ HTTP, service ตัดสิน, repo ทำ SQL, mapper เลือก field</li><li>ท่อง signature เดิมของ AppError และ apiResponse ให้แม่น อย่าใช้สลับกับโปรเจกต์ก่อนหน้า</li><li>เปลี่ยน config ให้ตรง DB แล้วตรวจ GET จริงก่อนทำ POST/PUT/DELETE</li><li>ตรวจ schema: key เป็น id AUTO_INCREMENT, sku UNIQUE, brand_id FK</li><li>ทดสอบทั้งการสร้าง ซ้ำ แก้ อ่านกลับ ลบ และอ่านหลังลบ</li><li>ตรวจ date/number/field names ใน response ให้ตรงตัวอย่าง</li><li>คง template/package/tester ตามโจทย์ ใช้คำสั่งรันที่ตรงไฟล์จริง</li><li>เตรียม dependencies/เครื่องมือไว้ล่วงหน้า และใช้เอกสารตามข้อกำหนดของห้องสอบ</li></ol><h2 id="section-15">14. โค้ดเต็มพร้อม comment ในไฟล์เดิม</h2><h3 id="section-16">14.1 src/app.js</h3><div class="code-label">js</div><pre><code>// 68130500075 - ตัวอย่างฝึก Mobile Distributor
+import express from &#x27;express&#x27;;
+import { errorHandler, AppError } from &#x27;./middlewares-$id/error-handler.js&#x27;;
+import { apiResponse } from &#x27;./mappers-$id/api-response.js&#x27;;
+import brandRouter from &#x27;./routes-$id/brand.route.js&#x27;;
+import productRouter from &#x27;./routes-$id/route.js&#x27;;
+
+const app = express();
+// ต้องอยู่ก่อน routes เพื่อให้ POST/PUT อ่าน req.body เป็น object ได้
+app.use(express.json());
+
+const STUDENT_ID = &#x27;68130500075&#x27;;
+const BASE_URL = `/api/${STUDENT_ID}`;
+
+app.get(`${BASE_URL}/student-info`, (req, res) =&gt; {
+    // ใช้ชื่อตาม Student Profile ที่ผู้ใช้ยืนยัน ไม่ใช้ชื่อที่ผิดใน JSON ตัวอย่าง
+    const student = {
+        studentId: STUDENT_ID,
+        name: &#x27;Siripoom Limesoontorn&#x27;,
+        secretKey: &#x27;67KaSu&#x27;
+    };
+    // helper เพิ่ม success และ timestamp ปัจจุบัน ไม่ hard-code เวลาในตัวอย่าง
+    return apiResponse(res, student);
+});
+
+// path ใน router จะต่อจาก prefix นี้ เช่น router.get(&#x27;/&#x27;) → /api/ID/products
+app.use(`${BASE_URL}/brands`, brandRouter);
+app.use(`${BASE_URL}/products`, productRouter);
+
+// ไม่มี route ตรงคำขอ ให้ส่ง 404 ผ่าน error handler เดียวกัน
+app.use((req, res, next) =&gt; {
+    next(new AppError(&#x27;Route not found&#x27;, 404));
+});
+app.use(errorHandler);
+
+app.listen(3000, () =&gt; {
+    console.log(`API ready: http://localhost:3000${BASE_URL}`);
+});</code></pre><h3 id="section-17">14.2 src/configs-$id/db-config.js</h3><div class="code-label">js</div><pre><code>// 68130500075 - MySQL pool ตามไฟล์เดิม
+import mysql from &#x27;mysql2/promise&#x27;;
+
+const db = mysql.createPool({
+    host: &#x27;localhost&#x27;,
+    user: &#x27;root&#x27;,
+    // เปลี่ยนเฉพาะค่าตั้งต้นนี้ให้ตรง MySQL ของเครื่องฝึก; ไม่ใช่รหัสในโจทย์
+    password: &#x27;1234&#x27;,
+    database: &#x27;mobile_distributor&#x27;,
+    // DECIMAL price เป็น number ใน JSON ไม่ใช่ string เช่น &quot;48900.00&quot;
+    decimalNumbers: true,
+    // DATE คงเป็น YYYY-MM-DD ไม่แปลงเป็น Date ที่มีเวลา/timezone
+    dateStrings: [&#x27;DATE&#x27;]
+});
+export default db;</code></pre><h3 id="section-18">14.3 src/repositories-$id/brand.repo.js</h3><div class="code-label">js</div><pre><code>// Repository ทำเฉพาะ SQL และคืนข้อมูล ไม่ใช้ req/res
+import db from &#x27;../configs-$id/db-config.js&#x27;;
+
+export async function findAll() {
+    // mysql2 คืน [rows, fields]; เลือก rows ซึ่งเป็น array ของแบรนด์
+    const [rows] = await db.query(&#x27;SELECT * FROM brands ORDER BY id&#x27;);
+    return rows;
+}
+
+export async function findOne(id) {
+    const [rows] = await db.query(&#x27;SELECT * FROM brands WHERE id = ?&#x27;, [id]);
+    // แถวแรกเป็น object; ถ้าไม่พบให้ service เป็นผู้ throw 404
+    return rows[0] ?? null;
+}</code></pre><h3 id="section-19">14.4 src/services-$id/brand.service.js</h3><div class="code-label">js</div><pre><code>import * as repo from &#x27;../repositories-$id/brand.repo.js&#x27;;
+import { AppError } from &#x27;../middlewares-$id/error-handler.js&#x27;;
+
+export async function getObject(id) {
+    const object = await repo.findOne(id);
+    if (!object) throw new AppError(`Brand ${id} is not found`, 404);
+    return object;
+}
+
+export function getAllObjects() {
+    // ส่ง Promise ต่อให้ route await ได้ ไม่ต้องเขียน async ซ้ำทุกฟังก์ชัน
+    return repo.findAll();
+}</code></pre><h3 id="section-20">14.5 src/routes-$id/brand.route.js</h3><div class="code-label">js</div><pre><code>import { apiResponse } from &#x27;../mappers-$id/api-response.js&#x27;;
+import * as service from &#x27;../services-$id/brand.service.js&#x27;;
+import express from &#x27;express&#x27;;
+
+const router = express.Router();
+router.get(&#x27;/&#x27;, async (req, res) =&gt; {
+    const objects = await service.getAllObjects();
+    return apiResponse(res, objects);
+});
+router.get(&#x27;/:id&#x27;, async (req, res) =&gt; {
+    const object = await service.getObject(req.params.id);
+    return apiResponse(res, object);
+});
+// ใบงานขอเฉพาะ GET Brands จึงคง handlers 405 ที่ template มีไว้
+router.post(&#x27;/&#x27;, (req, res) =&gt; res.status(405).json({ success: false, message: &#x27;Method not allowed&#x27; }));
+router.put(&#x27;/:id&#x27;, (req, res) =&gt; res.status(405).json({ success: false, message: &#x27;Method not allowed&#x27; }));
+router.delete(&#x27;/:id&#x27;, (req, res) =&gt; res.status(405).json({ success: false, message: &#x27;Method not allowed&#x27; }));
+export default router;</code></pre><h3 id="section-21">14.6 src/middlewares-$id/pagination-middleware.js</h3><div class="code-label">js</div><pre><code>// คงรูปแบบ middleware factory queryParser() ตาม template
+export const queryParser = () =&gt; {
+    return (req, res, next) =&gt; {
+        // ค่าเริ่มต้นตาม template คือ page=1, limit=20
+        const { page = &#x27;1&#x27;, limit = &#x27;20&#x27; } = req.query || {};
+        const parsedPage = Number(page);
+        const parsedLimit = Number(limit);
+        // ตัวอย่างนี้คงนโยบาย fallback เดิม: ค่าผิดใช้ default แทน throw
+        // Number ต่างจาก parseInt ตรงที่ไม่รับ &#x27;2abc&#x27; เป็นเลข 2
+        req.pagination = {
+            page: Number.isSafeInteger(parsedPage) &amp;&amp; parsedPage &gt; 0 ? parsedPage : 1,
+            limit: Number.isSafeInteger(parsedLimit) &amp;&amp; parsedLimit &gt; 0
+                ? Math.min(parsedLimit, 100)
+                : 20
+        };
+        // ใช้ limit หลัง cap แล้ว เช่น page=2, limit=200 → offset=100
+        req.pagination.offset = (req.pagination.page - 1) * req.pagination.limit;
+        // ป้องกันเลขหน้าที่ทำให้ผลคูณเกินช่วงจำนวนเต็มที่แทนได้แน่นอน
+        if (!Number.isSafeInteger(req.pagination.offset)) {
+            req.pagination.page = 1;
+            req.pagination.offset = 0;
+        }
+        next();
+    };
+};</code></pre><h3 id="section-22">14.7 src/repositories-$id/product.repo.js</h3><div class="code-label">js</div><pre><code>import db from &#x27;../configs-$id/db-config.js&#x27;;
+
+// รายการใช้เฉพาะ field Summary; ORDER BY ทำให้แบ่งหน้าได้ลำดับแน่นอน
+const FIND_ALL_SQL = `
+    SELECT id, sku, name, brand_id, category, price, status
+    FROM products
+    ORDER BY id
+    LIMIT ? OFFSET ?
+`;
+// COUNT ต้องนับทั้งหมดก่อน LIMIT ไม่ใช่นับแค่แถวในหน้าปัจจุบัน
+const COUNT_SQL = &#x27;SELECT COUNT(*) AS total FROM products&#x27;;
+const FIND_ONE_SQL = `
+    SELECT p.*, b.name AS brand_name
+    FROM products p
+    JOIN brands b ON b.id = p.brand_id
+    WHERE p.id = ?
+`;
+
+export async function findAll({ limit, offset }) {
+    // ผล query ชั้นแรกมี rows; rows ชั้นถัดไปมีแถว count หนึ่งแถว
+    const [[count]] = await db.query(COUNT_SQL);
+    const [rows] = await db.query(FIND_ALL_SQL, [limit, offset]);
+    return { rows, total: Number(count.total) };
+}
+
+export async function findOne(id) {
+    // JOIN แบรนด์เพื่อให้ Detail DTO มี brandName
+    const [rows] = await db.query(FIND_ONE_SQL, [id]);
+    return rows[0] ?? null;
+}
+
+export async function create(data) {
+    // ใช้ query() กับ SET ? แบบ template: driver แปลง object เป็นชื่อ column/ค่า
+    // service คัดเฉพาะ field ที่อนุญาตแล้วก่อนส่ง object เข้ามา
+    const [result] = await db.query(&#x27;INSERT INTO products SET ?&#x27;, [data]);
+    // schema นี้ id เป็น AUTO_INCREMENT จึงอ่านกลับด้วย insertId
+    return findOne(result.insertId);
+}
+
+export async function update(id, data) {
+    // SET เฉพาะ field ที่ส่งมา จึงแก้บาง field ได้ตาม test-runner
+    // WHERE สำคัญมาก: ห้ามลืม มิฉะนั้นจะเปลี่ยนสินค้าทั้งตาราง
+    await db.query(&#x27;UPDATE products SET ? WHERE id = ?&#x27;, [data, id]);
+    return findOne(id);
+}
+
+export async function remove(id) {
+    const [result] = await db.query(&#x27;DELETE FROM products WHERE id = ?&#x27;, [id]);
+    // คืน boolean ให้ service: true ลบได้, false ไม่พบแถวให้ลบ
+    return result.affectedRows &gt; 0;
+}</code></pre><h3 id="section-23">14.8 src/services-$id/service.js</h3><div class="code-label">js</div><pre><code>import * as repo from &#x27;../repositories-$id/product.repo.js&#x27;;
+import { AppError } from &#x27;../middlewares-$id/error-handler.js&#x27;;
+
+// helper เล็ก ๆ อยู่ใน service เดิม ไม่เพิ่มโฟลเดอร์ validator หรือ class ใหม่
+function prepareData(body, creating) {
+    if (!body || typeof body !== &#x27;object&#x27; || Array.isArray(body)) {
+        throw new AppError(&#x27;Request body must be an object&#x27;, 400);
+    }
+    const fields = [
+        &#x27;sku&#x27;, &#x27;name&#x27;, &#x27;brand_id&#x27;, &#x27;category&#x27;, &#x27;price&#x27;, &#x27;ram_gb&#x27;,
+        &#x27;storage_gb&#x27;, &#x27;color&#x27;, &#x27;stock_quantity&#x27;, &#x27;status&#x27;, &#x27;release_date&#x27;
+    ];
+    const data = {};
+    // ไม่รับ id, created_at, updated_at หรือชื่อ column อิสระจากผู้ใช้
+    for (const key of Object.keys(body)) {
+        if (!fields.includes(key)) throw new AppError(`Unknown field: ${key}`, 400);
+        data[key] = body[key];
+    }
+    if (Object.keys(data).length === 0) throw new AppError(&#x27;Body must not be empty&#x27;, 400);
+
+    // POST ต้องมี field ที่ DB ไม่ได้กำหนด default; release_date เป็น nullable
+    // PUT ไม่บังคับครบ เพราะชุดทดสอบส่งเพียง name/price/stock_quantity
+    const required = [&#x27;sku&#x27;, &#x27;name&#x27;, &#x27;brand_id&#x27;, &#x27;category&#x27;, &#x27;price&#x27;, &#x27;ram_gb&#x27;, &#x27;storage_gb&#x27;, &#x27;color&#x27;];
+    if (creating) {
+        for (const key of required) {
+            if (data[key] === undefined || data[key] === null || data[key] === &#x27;&#x27;) {
+                throw new AppError(`${key} is required`, 400);
+            }
+        }
+    }
+    for (const key of [&#x27;sku&#x27;, &#x27;name&#x27;, &#x27;category&#x27;, &#x27;color&#x27;, &#x27;status&#x27;]) {
+        if (data[key] !== undefined) {
+            if (typeof data[key] !== &#x27;string&#x27; || data[key].trim() === &#x27;&#x27;) {
+                throw new AppError(`${key} must be a non-empty string`, 400);
+            }
+            data[key] = data[key].trim();
+        }
+    }
+    // รับ JSON number จริง; ค่า stock=0 และ price=0 ใช้ได้ในตัวอย่างนี้
+    for (const key of [&#x27;brand_id&#x27;, &#x27;price&#x27;, &#x27;ram_gb&#x27;, &#x27;storage_gb&#x27;, &#x27;stock_quantity&#x27;]) {
+        if (data[key] !== undefined) {
+            if (typeof data[key] !== &#x27;number&#x27; || !Number.isFinite(data[key]) || data[key] &lt; 0) {
+                throw new AppError(`${key} must be a non-negative number`, 400);
+            }
+            if (key !== &#x27;price&#x27; &amp;&amp; !Number.isSafeInteger(data[key])) {
+                throw new AppError(`${key} must be an integer`, 400);
+            }
+        }
+    }
+    return data;
+}
+
+export async function getObject(id) {
+    // await ให้ได้ entity/null ก่อนตรวจ ไม่ตรวจ Promise ด้วย if โดยตรง
+    const object = await repo.findOne(id);
+    if (!object) throw new AppError(`Product ${id} is not found`, 404);
+    return object;
+}
+
+export async function getAllObjects(pagination) {
+    // คืน {rows,total} ตามรูปแบบ repository เดิม; route นำ rows ไป map DTO
+    return repo.findAll(pagination);
+}
+
+export async function updateObject(id, data) {
+    // เช็ก ID ก่อนแก้; ส่งค่าเดิมซ้ำก็ไม่เข้าใจผิดว่าไม่พบ ID
+    await getObject(id);
+    const productData = prepareData(data, false);
+    const updated = await repo.update(id, productData);
+    if (!updated) throw new AppError(`Product ${id} is not found`, 404);
+    return updated;
+}
+
+export async function removeObject(id) {
+    await getObject(id);
+    const removed = await repo.remove(id);
+    if (!removed) throw new AppError(`Product ${id} is not found`, 404);
+    return removed;
+}
+
+export async function createObject(data) {
+    const productData = prepareData(data, true);
+    // SKU ซ้ำหรือ brand_id ไม่มีจริงจะ throw จาก DB ไป error handler
+    return repo.create(productData);
+}</code></pre><h3 id="section-24">14.9 src/mappers-$id/product-mapper.js</h3><div class="code-label">js</div><pre><code>// ใช้ชื่อ class/ไฟล์เดิม; mapper สร้าง object ใหม่ ไม่แก้ entity
+export default class EntityDtoMapper {
+    static toSummaryDTO(entity) {
+        // Summary มีเฉพาะ 7 field ที่ใบงานกำหนด
+        return {
+            id: entity.id,
+            sku: entity.sku,
+            name: entity.name,
+            brandId: entity.brand_id,
+            category: entity.category,
+            price: Number(entity.price),
+            status: entity.status
+        };
+    }
+
+    static toDetailDTO(entity) {
+        return {
+            id: entity.id,
+            sku: entity.sku,
+            name: entity.name,
+            brandId: entity.brand_id,
+            brandName: entity.brand_name,
+            category: entity.category,
+            price: Number(entity.price),
+            ramGb: entity.ram_gb,
+            storageGb: entity.storage_gb,
+            color: entity.color,
+            stockQuantity: entity.stock_quantity,
+            status: entity.status,
+            // db-config ให้ DATE เป็น string อยู่แล้ว จึงไม่เลื่อนวันตาม timezone
+            releaseDate: entity.release_date
+        };
+    }
+
+    static map(entity, viewType) {
+        if (viewType === &#x27;summary&#x27;) return this.toSummaryDTO(entity);
+        return this.toDetailDTO(entity);
+    }
+
+    static maps(entities, viewType) {
+        // คงชื่อ maps ตาม template; route ใช้ map array ตรง ๆ ได้เช่นกัน
+        // ไม่แนบ total เป็น property แฝงของ array เพราะ JSON ไม่ส่ง property นั้น
+        if (viewType === &#x27;full&#x27;) return entities.map(item =&gt; this.toDetailDTO(item));
+        return entities.map(item =&gt; this.toSummaryDTO(item));
+    }
+}</code></pre><h3 id="section-25">14.10 src/mappers-$id/api-response.js</h3><div class="code-label">js</div><pre><code>import httpStatus from &#x27;http-status&#x27;;
+
+// คงลำดับ argument เดิม 4 ตัว ไม่เพิ่ม total เป็น argument ใหม่
+export function apiResponse(res, data, pagination = null, status = httpStatus.OK) {
+    const response = {
+        success: true,
+        data: data,
+        timestamp: new Date().toISOString()
+    };
+    if (pagination) {
+        // route ส่ง total รวมเข้ามาใน object pagination แล้ว
+        const { limit, page, total } = pagination;
+        response.pagination = {
+            total,
+            page,
+            limit,
+            totalPages: Math.ceil(total / limit),
+            hasNextPage: page * limit &lt; total,
+            hasPrevPage: page &gt; 1
+        };
+    }
+    // status() ตั้งสถานะ ส่วน json() ส่ง response จริง
+    return res.status(Number(status)).json(response);
+}</code></pre><h3 id="section-26">14.11 src/routes-$id/route.js</h3><div class="code-label">js</div><pre><code>import express from &#x27;express&#x27;;
+import { apiResponse } from &#x27;../mappers-$id/api-response.js&#x27;;
+import ProductMapper from &#x27;../mappers-$id/product-mapper.js&#x27;;
+import * as service from &#x27;../services-$id/service.js&#x27;;
+import { queryParser } from &#x27;../middlewares-$id/pagination-middleware.js&#x27;;
+
+const router = express.Router();
+
+router.get(&#x27;/&#x27;, queryParser(), async (req, res) =&gt; {
+    // middleware เตรียม page/limit/offset ก่อนเข้า handler นี้
+    const result = await service.getAllObjects(req.pagination);
+    // แต่ละ entity ถูกเลือกเฉพาะ Summary fields
+    const data = result.rows.map(ProductMapper.toSummaryDTO);
+    // รวม total กับ pagination ตาม contract ของ helper เดิม
+    return apiResponse(res, data, { ...req.pagination, total: result.total });
+});
+
+router.get(&#x27;/:id&#x27;, async (req, res) =&gt; {
+    const product = await service.getObject(req.params.id);
+    return apiResponse(res, ProductMapper.toDetailDTO(product));
+});
+
+router.post(&#x27;/&#x27;, async (req, res) =&gt; {
+    const product = await service.createObject(req.body);
+    // 201 เป็น argument ตัวที่ 4 ตาม helper ของ template นี้
+    return apiResponse(res, ProductMapper.toDetailDTO(product), null, 201);
+});
+
+router.put(&#x27;/:id&#x27;, async (req, res) =&gt; {
+    // ต้องส่งทั้ง path ID และ body ห้ามเรียก updateObject() ว่าง ๆ
+    const product = await service.updateObject(req.params.id, req.body);
+    return apiResponse(res, ProductMapper.toDetailDTO(product));
+});
+
+router.delete(&#x27;/:id&#x27;, async (req, res) =&gt; {
+    await service.removeObject(req.params.id);
+    // 204 ต้องไม่มี JSON body
+    return res.status(204).end();
+});
+
+export default router;</code></pre><h3 id="section-27">14.12 src/middlewares-$id/error-handler.js</h3><div class="code-label">js</div><pre><code>import httpStatus from &#x27;http-status&#x27;;
+
+// คง AppError ในไฟล์เดิม และคง argument (message, statusCode) เดิม
+export class AppError extends Error {
+    constructor(message, statusCode) {
+        super(message);
+        this.statusCode = statusCode;
+        this.errorCode = httpStatus[statusCode];
+        Error.captureStackTrace(this, this.constructor);
+    }
+}
+
+export const errorHandler = (err, req, res, next) =&gt; {
+    if (res.headersSent) return next(err);
+    // JSON parser ใช้ err.status; AppError ของเราใช้ err.statusCode
+    let statusCode = err.statusCode || err.status || 500;
+    let errorCode = err.errorCode || &#x27;INTERNAL_SERVER_ERROR&#x27;;
+    let message = err.message || &#x27;An unexpected error occurred&#x27;;
+
+    if (err.type === &#x27;entity.parse.failed&#x27;) {
+        statusCode = 400;
+        errorCode = &#x27;INVALID_JSON&#x27;;
+        message = &#x27;Request body is not valid JSON&#x27;;
+    } else if (err.code === &#x27;ER_DUP_ENTRY&#x27;) {
+        statusCode = 409;
+        errorCode = &#x27;DUPLICATE_KEY&#x27;;
+        message = &#x27;SKU already exists&#x27;;
+    } else if (err.code === &#x27;ER_NO_REFERENCED_ROW_2&#x27;) {
+        statusCode = 400;
+        errorCode = &#x27;FOREIGN_KEY_NOT_FOUND&#x27;;
+        message = &#x27;Brand does not exist&#x27;;
+    } else if (err.code === &#x27;ER_ROW_IS_REFERENCED_2&#x27;) {
+        statusCode = 409;
+        errorCode = &#x27;RESOURCE_IN_USE&#x27;;
+        message = &#x27;Resource is referenced by other records&#x27;;
+    }
+    if (statusCode === 500) {
+        console.error(err);
+        message = &#x27;An unexpected error occurred&#x27;;
+    }
+    return res.status(statusCode).json({
+        success: false,
+        error: { code: errorCode, message: message },
+        timestamp: new Date().toISOString()
+    });
+};</code></pre><h3 id="section-28">14.13 src/test-service.js</h3><div class="code-label">js</div><pre><code>// ทดสอบ service แบบอ่านอย่างเดียว ไม่ลบสินค้าเดิมเหมือนตัวอย่างเก่า
+import * as service from &#x27;./services-$id/service.js&#x27;;
+import db from &#x27;./configs-$id/db-config.js&#x27;;
+
+try {
+    const product = await service.getObject(1);
+    console.log(product);
+} catch (err) {
+    console.log(err.message);
+} finally {
+    // script ทดสอบจบแล้วจึงปิด pool; app.js ของ server ไม่ปิดทุก request
+    await db.end();
+}</code></pre></main></body></html>
